@@ -1,6 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace Branches\Http\Controllers;
 
-class WelcomeController extends Controller {
+use Illuminate\Http\Request;
+
+class WelcomeController extends Controller
+{
 
 	/*
 	|--------------------------------------------------------------------------
@@ -33,4 +36,42 @@ class WelcomeController extends Controller {
 		return view('welcome');
 	}
 
+	public function webhook(Request $request)
+	{
+		$info = json_decode($request->getContent());
+
+		$repo_url = parse_url($info->changes->values[0]->links->self[0]->href);
+		$repo_path = join('/',
+			array_slice(
+				explode('/', $repo_url['path']),
+				0, -2
+			)
+		);
+
+		$branch = join('/',
+			array_slice(
+				explode('/', $info->refChanges->refId),
+				2
+			)
+		);
+
+		$repo = [
+			'url' => $repo_url['schema'] . '://' . $repo_url['host'] . $repo_path,
+			'name' => $info->repository->name,
+			'slug' => $info->repository->slug,
+			'ownerSlug' => $info->repository->project->owner->slug,
+			'ownerName' => $info->repository->project->owner->displayName,
+			'email' => $info->repository->project->owner->emailAddress,
+			'branch' => $branch,
+		];
+
+
+
+		return 'OK';
+	}
+
+	public function t()
+	{
+
+	}
 }

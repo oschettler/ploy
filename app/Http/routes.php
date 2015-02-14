@@ -12,6 +12,9 @@
 */
 
 Route::get('/', 'WelcomeController@index');
+Route::post('/', 'WelcomeController@webhook');
+
+Route::get('/t', 'WelcomeController@t');
 
 Route::get('home', 'HomeController@index');
 
