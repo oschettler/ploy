@@ -71,7 +71,7 @@ class Update extends Model
 	public function workingCopyDirectory()
 	{
         $root_dir = getenv('WORKING_COPY_ROOT_DIR');
-        $branch = $this->update->branch;
+        $branch = $this->branch;
         return $root_dir
             . preg_replace('/\W+/', '-', $branch->repo->name . '-' . $branch->name);
 	}
