@@ -70,8 +70,10 @@ class WelcomeController extends Controller
     {
         error_log(strftime("%Y-%m-%d %H:%M:%S Webhook start\n"), 3, '/tmp/branches-log.log');
         $info = $this->decodeInfo(json_decode($request->getContent()));
-        $update = Update::createFromInfo($info);
-        error_log(strftime("%Y-%m-%d %H:%M:%S Webhook finished\n"), 3, '/tmp/branches-log.log');
+        
+        $this->dispatch(new UpdateWorkingCopy(Update::createFromInfo($info)));
+        
+        error_log(strftime("%Y-%m-%d %H:%M:%S Webhook finished\n"), 3, '/tmp/branches-log.log');        
         return 'OK';
     }
 
