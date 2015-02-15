@@ -11,7 +11,7 @@
     		
     		<table class="table table-striped" role="table">
                 <thead>
-                    <tr><th>Name</th><th>Owner</th><th>Script</th></tr>
+                    <tr><th>Name</th><th>Owner</th><th>Branches</th><th>Script</th></tr>
                 </thead>
                 <tbody>
                     @foreach ($repos as $repo)
@@ -21,6 +21,11 @@
                         </td>
                         <td>
                             <a href="mailto:{{ $repo->owner_email}}">{{ $repo->owner_name}}</a>
+                        </td>
+                        <td>
+                            {{ join(', ', array_map(function ($branch) {
+                                return $branch->name;
+                            }, $repo->branches->all())) }}
                         </td>
                         <td>
                             <a href="#" data-id="{{ $repo->id }}" class="edit-script" data-toggle="modal" data-target="#edit-script"><i class="glyphicon glyphicon-pencil"></i></a>
