@@ -60,6 +60,6 @@ class Update extends Model
         $log->message = "Branch {$repo->name}.{$branch->name} updated";
         $log->save();
 
-        $return $update;
+        return $update;
 	}
 }
