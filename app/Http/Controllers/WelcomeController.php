@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use Branches\Model\Update;
+use Branches\Commands\UpdateWorkingCopy;
 
 class WelcomeController extends Controller
 {
