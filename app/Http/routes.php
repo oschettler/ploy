@@ -14,6 +14,8 @@
 Route::get('/', 'WelcomeController@index');
 Route::post('/', 'WelcomeController@webhook');
 
+Route::post('/repos/update/{id}', 'ReposController@update');
+
 Route::get('/t', 'WelcomeController@t');
 
 Route::get('home', 'HomeController@index');
