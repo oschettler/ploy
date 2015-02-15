@@ -6,6 +6,6 @@ class Branch extends Model
 {
 	public function repo()
 	{
-        $this->belongsTo('Branches\Model\Repo');
+        return $this->belongsTo('Branches\Model\Repo');
 	}
 }

@@ -65,7 +65,7 @@ class Update extends Model
 
 	public function branch()
 	{
-        $this->belongsTo('Branches\Model\Branch');
+        return $this->belongsTo('Branches\Model\Branch');
 	}
 
 	public function workingCopyDirectory()
