@@ -57,9 +57,22 @@ class Update extends Model
 
         $log = new Log;
         $log->update_id = $update->id;
-        $log->message = "Branch {$repo->name}.{$branch->name} updated";
+        $log->message = "Update for {$repo->name}.{$branch->name}";
         $log->save();
 
         return $update;
+	}
+
+	public function branch()
+	{
+        $this->belongsTo('Branches\Model\Branch');
+	}
+
+	public function workingCopyDirectory()
+	{
+        $root_dir = getenv('WORKING_COPY_ROOT_DIR');
+        $branch = $this->update->branch;
+        return $root_dir
+            . preg_replace('/\W+/', '-', $branch->repo->name . '-' . $branch->name);
 	}
 }
