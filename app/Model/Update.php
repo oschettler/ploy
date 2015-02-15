@@ -68,11 +68,22 @@ class Update extends Model
         return $this->belongsTo('Branches\Model\Branch');
 	}
 
-	public function workingCopyDirectory()
+	public function workingCopyArgs()
 	{
         $root_dir = getenv('WORKING_COPY_ROOT_DIR');
         $branch = $this->branch;
-        return $root_dir
-            . preg_replace('/\W+/', '-', $branch->repo->name . '-' . $branch->name);
+        $repo = $branch->repo;
+
+        return (object)[
+            'script' => $repo->update_script,
+            'args' => [
+                'wc_branch' => $branch->name,
+                'wc_repo' => $repo->name,
+                'wc_ssh_clone_url' => $repo->ssh_clone_url,
+                'wc_repos_root_dir' => getenv('REPOS_ROOT_DIR'),
+                'wc_root_dir' => $root_dir,
+                'wc_dir' => preg_replace('/\W+/', '-', $repo->name . '-' . $branch->name),
+            ],
+        ];
 	}
 }

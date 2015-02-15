@@ -34,15 +34,17 @@ class UpdateWorkingCopy extends Command implements SelfHandling, ShouldBeQueued 
 	 */
 	public function handle()
 	{
-        $dir = $this->update->workingCopyDirectory();
-		$cmd = "cd {$dir} && git pull 2>&1";
+        $args = $this->update->workingCopyArgs();
+        foreach ($args->args as $name => $value) {
+            putenv(strtoupper($name) . '=' . $value);
+        }
 
 		$log = new Log;
-		$log->message = "Command: {$cmd}";
+		$log->message = "Script: {$args->script}";
 		$log->save();
 
 		$log = new Log;
-        $log->message = shell_exec($cmd);
+        $log->message = shell_exec($args->script);
         $log->save();
 	}
 
