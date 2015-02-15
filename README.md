@@ -4,4 +4,4 @@ Now at http://branches.schettler.net/
 Working?
 
 ...
-kleine Änderung im README
+klitzekleine Änderung im README
