@@ -49,20 +49,24 @@ class WelcomeController extends Controller
             )
         );
 
-        $stash_repo_url = getenv('STASH_REPO_URL');
-
-        $repo_url = strtr($stash_repo_url, [
-            '{stash_user}' => getenv('STASH_USER'),
-            '{stash_password}' => getenv('STASH_PASSWORD'),
-            '{project_key}' => $project->key,
-            '{repo_slug}' => $repository->slug,
-        ]);
-        $repo_info = json_decode(file_get_contents($repo_url));
-
         $ssh_clone_url = null;
-        foreach ($repo_info->links->clone as $url) {
-            if ($url->name == 'ssh') {
-                $ssh_clone_url = $url->href;
+
+        // Only try to get the ssh_clone_url if STASH_REPO_URL is configured         
+        if (getenv('STASH_REPO_URL')) {
+            $stash_repo_url = getenv('STASH_REPO_URL');
+    
+            $repo_url = strtr($stash_repo_url, [
+                '{stash_user}' => getenv('STASH_USER'),
+                '{stash_password}' => getenv('STASH_PASSWORD'),
+                '{project_key}' => $project->key,
+                '{repo_slug}' => $repository->slug,
+            ]);
+            $repo_info = json_decode(file_get_contents($repo_url));
+    
+            foreach ($repo_info->links->clone as $url) {
+                if ($url->name == 'ssh') {
+                    $ssh_clone_url = $url->href;
+                }
             }
         }
 

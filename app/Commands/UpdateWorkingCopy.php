@@ -39,12 +39,17 @@ class UpdateWorkingCopy extends Command implements SelfHandling, ShouldBeQueued 
             putenv(strtoupper($name) . '=' . $value);
         }
 
-		$log = new Log;
-		$log->message = "Script: {$args->script}";
-		$log->save();
+        // Remove carriage returns. The shell can't handle them
+        $script = strtr($args->script, ["\r" => '']);
 
 		$log = new Log;
-        $log->message = shell_exec($args->script);
+		$log->update_id = $this->update->id;
+		$log->message = "Script: {$script}";
+		$log->save();
+		
+		$log = new Log;
+		$log->update_id = $this->update->id;
+        $log->message = shell_exec($script);
         $log->save();
 	}
 
