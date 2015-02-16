@@ -1,4 +1,4 @@
-# Branches as Working Copies
+# Deploy Branches
 
 This is the initial release of an application that you use as follows:
 
@@ -8,6 +8,11 @@ This is the initial release of an application that you use as follows:
 * Stash will POST some info about the changes to your startpage
 * The startpage will extract some information from these post data and will call Stash for further information
 * With this, it will update its database and queue a job to update the working copy of the affected branch
+
+## Use Cases
+
+*  Deploy each branch as a working copy, in the guise of [platform.sh|https://platform.sh/]
+*  Automatically deploy code updates to a production server, possibly after running a set of automatic tests 
 
 ## Setup
 
