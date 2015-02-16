@@ -50,7 +50,7 @@ php artisan queue:work
 
 In your `WORKING_COPY_ROOT_DIR`, there will now be a clone of the branch you pushed. Point a webserver at it.
 
-## Example Repository Script
+## Example Deployment Recipe
 
 ````
 # This script gets invoked with the following environment variables:
