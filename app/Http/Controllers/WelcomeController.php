@@ -31,7 +31,16 @@ class WelcomeController extends Controller
     {
         $repository = $info->repository;
         $project = $repository->project;
-        $owner = $project->owner;
+        
+        if (isset($project->owner)) {
+            $owner = $project->owner;
+            $owner_name = $owner->displayName;
+            $owner_email = $owner->emailAddress;
+        }
+        else {
+            $owner_name = null;
+            $owner_email = null;
+        }
 
         $branch_name = join('/',
             array_slice(
@@ -60,8 +69,8 @@ class WelcomeController extends Controller
         return (object)[
             'ssh_clone_url' => $ssh_clone_url,
             'name' => $repository->name,
-            'owner_name' => $owner->displayName,
-            'owner_email' => $owner->emailAddress,
+            'owner_name' => $owner_name,
+            'owner_email' => $owner_email,
             'branch_name' => $branch_name,
         ];
     }
@@ -69,6 +78,9 @@ class WelcomeController extends Controller
     public function webhook(Request $request)
     {
         error_log(strftime("%Y-%m-%d %H:%M:%S Webhook start\n"), 3, '/tmp/branches-log.log');
+        
+        file_put_contents('/tmp/branches.log', $request->getContent());
+
         $info = $this->decodeInfo(json_decode($request->getContent()));
         
         $this->dispatch(new UpdateWorkingCopy(Update::createFromInfo($info)));
@@ -79,8 +91,11 @@ class WelcomeController extends Controller
 
     public function t()
     {
-        $info = $this->decodeInfo(json_decode(file_get_contents('/tmp/branches.log')));
-        Update::createFromInfo($info);
+        error_reporting(-1);
+        ini_set('display_errors', true);
 
+        $info = $this->decodeInfo(json_decode(file_get_contents('/tmp/branches.log')));
+        
+        Update::createFromInfo($info);
     }
 }
