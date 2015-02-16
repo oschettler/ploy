@@ -74,19 +74,21 @@ then
 else
   # Working copy not there yet
   
-  if [ ! -d $WC_REPOS_ROOT_DIR ]
+  repo_dir="$WC_REPOS_ROOT_DIR$WC_REPO"
+
+  if [ ! -d $repo_dir ]
   then
     # First time a branch from this repository is checked out
-    git clone $WC_SSH_CLONE_URL $WC_REPOS_ROOT_DIR 2>&1
+    git clone $WC_SSH_CLONE_URL $repo_dir 2>&1
   fi
 
   # Make sure the branch is in the repo
-  cd $WC_REPOS_ROOT_DIR$WC_REPO
+  cd $repo_dir
   git fetch origin $WC_BRANCH:$WC_BRANCH 2>&1
 
   # Now we have the repo, clone it into the actual working copy
   cd $WC_ROOT_DIR
-  git clone --single-branch --branch $WC_BRANCH $WC_REPOS_ROOT_DIR$WC_REPO $WC_DIR 2>&1
+  git clone --single-branch --branch $WC_BRANCH $repo_dir $WC_DIR 2>&1
 
   # Fix up the remote URL to point to the original one
   cd $WC_DIR
