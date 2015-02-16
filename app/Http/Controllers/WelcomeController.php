@@ -7,9 +7,6 @@ use Branches\Commands\UpdateWorkingCopy;
 
 class WelcomeController extends Controller
 {
-
-  const STASH_REPO_URL = 'https://{stash_user}:{stash_password}@jira.chefkoch.de/stash/rest/api/1.0/projects/{project_key}/repos/{repo_slug}';
-
     /**
      * Create a new controller instance.
      *
@@ -43,7 +40,9 @@ class WelcomeController extends Controller
             )
         );
 
-        $repo_url = strtr(self::STASH_REPO_URL, [
+        $stash_repo_url = getenv('STASH_REPO_URL');
+
+        $repo_url = strtr($stash_repo_url, [
             '{stash_user}' => getenv('STASH_USER'),
             '{stash_password}' => getenv('STASH_PASSWORD'),
             '{project_key}' => $project->key,
