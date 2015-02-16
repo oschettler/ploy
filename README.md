@@ -1,6 +1,6 @@
 # Branches as Working Copies
 
-This is the initial release of an application that works as follows:
+This is the initial release of an application that you use as follows:
 
 * Create a repository in Atlassian Stash 
 * Register startpage of this application as Post-Receive WebHook in Stash
