@@ -1,6 +1,49 @@
 # Branches as Working Copies
 
-Now at http://branches.schettler.net/
+This is the initial release of an application that works as follows:
+
+* Create a repository in Atlassian Stash 
+* Register startpage of this application as Post-Receive WebHook in Stash
+* Work in your repository. Push something
+* Stash will POST some info about the changes to your startpage
+* The startpage will extract some information from these post data and will call Stash for further information
+* With this, it will update its database and queue a job to update the working copy of the affected branch
+
+## Setup
+
+After cloning this repository and setting the document root of a web server (e.g. http://branches.example.com) to the public directory, create a file .env and set the following variables:
+
+````
+APP_ENV = production
+APP_DEBUG = false
+APP_KEY = 32char secret key
+
+STASH_REPO_URL = https://{stash_user}:{stash_password}@stash.example.com/stash/rest/api/1.0/projects/{project_key}/repos/{repo_slug}
+STASH_USER = your-stash-user
+STASH_PASSWORD = your-stash-password
+
+DB_HOST = localhost
+DB_DATABASE = branches
+DB_USERNAME = branches
+DB_PASSWORD = database-password
+
+REPOS_ROOT_DIR = /path/to/your/repos/
+WORKING_COPY_ROOT_DIR = /path/to/your/working-copies/
+````
+
+Now, create a database `branches` and load it with `database/schema.sql`.
+
+Push once. You should now have an entry for your repository in the database.
+
+Access the startpage, and register yourself an account. On the startpage, your repository should now be listed. Click on the edit button and enter the following script.
+
+On the command line, run the Laravel queue manually:
+
+````
+php artisan queue:work
+````
+
+In your `WORKING_COPY_ROOT_DIR`, there will now be a clone of the branch you pushed. Point a webserver at it.
 
 ## Example Repository Script
 
