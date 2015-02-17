@@ -16,7 +16,7 @@ This is the initial release of an application that you use as follows:
 
 ## Setup
 
-After cloning this repository and setting the document root of a web server (e.g. http://branches.example.com) to the public directory, create a file .env and set the following variables:
+After cloning this repository and setting the document root of a web server (e.g. http://branches.example.com) to the web directory, create a file .env and set the following variables:
 
 ````
 APP_ENV = production
