@@ -2,10 +2,10 @@
 
 This is the initial release of an application that you use as follows:
 
-* Create a repository in Atlassian Stash 
-* Register startpage of this application as Post-Receive WebHook in Stash
+* Create a repository in Atlassian Stash or Github
+* Register startpage URL of this application as Post-Receive WebHook in Stash or Github
 * Work in your repository. Push something
-* Stash will POST some info about the changes to your startpage
+* Stash/Github will POST some info about the changes to your startpage
 * The startpage will extract some information from these post data and will call Stash for further information
 * With this, it will update its database and queue a job to update the working copy of the affected branch
 
@@ -23,6 +23,8 @@ APP_ENV = production
 APP_DEBUG = false
 APP_KEY = 32char secret key
 
+# Only needed for Stash support
+# You can also enter the Git-Clone URL manually into the database if you don't want this callback
 STASH_REPO_URL = https://{stash_user}:{stash_password}@stash.example.com/stash/rest/api/1.0/projects/{project_key}/repos/{repo_slug}
 STASH_USER = your-stash-user
 STASH_PASSWORD = your-stash-password
