@@ -38,7 +38,7 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Branches<br>as Working Copies</div>
+				<div class="title">Ploy<br>All Your Branches<br>Deployed</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 			</div>
 		</div>

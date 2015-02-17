@@ -12,6 +12,7 @@ class CreateBranches extends Migration {
 	 */
 	public function up()
 	{
+		if (!Schema::hasTable('branches')) {
 		Schema::create('branches', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -19,6 +20,7 @@ class CreateBranches extends Migration {
 			$table->string('name', 100);
 			$table->timestamps();
 		});
+		}
 	}
 
 	/**

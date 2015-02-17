@@ -12,6 +12,7 @@ class CreateRepos extends Migration {
 	 */
 	public function up()
 	{
+		if (! Schema::hasTable('repos')) {
 		Schema::create('repos', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -22,6 +23,7 @@ class CreateRepos extends Migration {
 			$table->string('owner_email', 100);
 			$table->timestamps();
 		});
+		}
 	}
 
 	/**

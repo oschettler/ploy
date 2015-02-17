@@ -14,9 +14,15 @@ class RepoNullables extends Migration {
 	{
 		Schema::table('repos', function(Blueprint $table)
 		{
-		    $table->string('update_script', 50)->nullable()->change();	
+		    /*
+		     * @see https://laracasts.com/discuss/channels/general-discussion/l5-migration-issue
+		    $table->string('update_script')->nullable()->change();	
             $table->string('owner_name', 100)->nullable()->change();
             $table->string('owner_email', 100)->nullable()->change();
+			*/
+		    DB::statement('ALTER TABLE `repos` MODIFY `update_script` TEXT NULL;');
+		    DB::statement('ALTER TABLE `repos` MODIFY `owner_name` VARCHAR(100) NULL;');
+		    DB::statement('ALTER TABLE `repos` MODIFY `owner_email` VARCHAR(100) NULL;');
 		});
 	}
 

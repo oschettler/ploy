@@ -12,6 +12,7 @@ class CreateLogs extends Migration {
 	 */
 	public function up()
 	{
+		if (! Schema::hasTable('logs')) {
 		Schema::create('logs', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -19,6 +20,7 @@ class CreateLogs extends Migration {
             $table->integer('update_id');
 			$table->timestamps();
 		});
+		}
 	}
 
 	/**

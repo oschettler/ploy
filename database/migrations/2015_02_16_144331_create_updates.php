@@ -12,6 +12,7 @@ class CreateUpdates extends Migration {
 	 */
 	public function up()
 	{
+		if (! Schema::hasTable('updates')) {
 		Schema::create('updates', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -19,6 +20,7 @@ class CreateUpdates extends Migration {
 			$table->string('status', 20);
 			$table->timestamps();
 		});
+		}
 	}
 
 	/**
