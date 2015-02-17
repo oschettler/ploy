@@ -32,9 +32,12 @@ class WelcomeController extends Controller
 
     public function webhook(Request $request)
     {
+        //D error_reporting(-1);
+        //D ini_set('display_errors', true);
         error_log(strftime("%Y-%m-%d %H:%M:%S Webhook start\n"), 3, '/tmp/branches-log.log');
         
-        file_put_contents('/tmp/branches.log', $request->getContent());
+        $content = $request->getContent();
+        file_put_contents('/tmp/branches.log', $content);
         
         if (stripos($_SERVER['HTTP_USER_AGENT'], 'github') === 0) {
             $decoder = new GithubDecoder;
@@ -42,7 +45,7 @@ class WelcomeController extends Controller
         else {
             $decoder = new StashDecoder;
         }
-        $info = $decoder->decode(json_decode($request->getContent()));
+        $info = $decoder->decode(json_decode($content));
         
         $this->dispatch(new UpdateWorkingCopy(Update::createFromInfo($info)));
         

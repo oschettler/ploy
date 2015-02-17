@@ -30,6 +30,11 @@
 				margin-bottom: 40px;
 			}
 
+			.subtitle {
+				font-size: 48px;
+				margin-bottom: 40px;
+			}
+
 			.quote {
 				font-size: 24px;
 			}
@@ -38,7 +43,8 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Ploy<br>All Your Branches<br>Deployed</div>
+				<div class="title">Ploy</div>
+				<div class="subtitle">All your branches &hellip;<br>&hellip; deployed</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 			</div>
 		</div>
