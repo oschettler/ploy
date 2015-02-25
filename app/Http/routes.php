@@ -36,7 +36,7 @@ Route::group([
 
     // Display the specified script
     Route::get('{script}', [
-        'as' => 'script',
+        'as' => 'scripts.show',
         'uses' => 'ScriptsController@show'
     ]);
 
@@ -44,7 +44,10 @@ Route::group([
     Route::get('edit/{script}', 'ScriptsController@edit');
 
     // Update the specified script in storage
-    Route::post('store/{script}', 'ScriptsController@update');
+    Route::post('update/{script}', [
+        'as' => 'scripts.update',
+        'uses' => 'ScriptsController@update'
+    ]);
 
     // Remove the specified script from storage
     Route::post('destroy/{script}', 'ScriptsController@destroy');

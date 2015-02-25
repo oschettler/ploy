@@ -15,10 +15,13 @@
             <tr>
                 <td>{{ $script->name }}</td>
                 <td>
+                    {!! Form::open(['url' => 'scripts/destroy/' . $script->id, 'class' => 'pull-right', 'method' => 'POST']) !!}
+                        {!! Form::submit('Delete this Script', array('class' => 'btn btn-warning')) !!}
+                    {!! Form::close() !!}
                     <a class="btn btn-small btn-success" href="{{ URL::to('scripts/' . $script->id) }}">
                         Show this Script
                     </a>
-                    <a class="btn btn-small btn-info" href="{{ URL::to('scripts/edit/' . $value->id) }}">
+                    <a class="btn btn-small btn-info" href="{{ URL::to('scripts/edit/' . $script->id) }}">
                         Edit this Script
                     </a>
                 </td>

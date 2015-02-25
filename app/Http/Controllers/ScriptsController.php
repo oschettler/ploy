@@ -3,10 +3,8 @@
 use Branches\Http\Requests;
 use Branches\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 use Branches\Model\Script;
-use Illuminate\Validation\Validator;
-use Illuminate\Support\Facades\Input;
+use Branches\Http\Requests\ScriptRequest;
 
 class ScriptsController extends Controller {
 
@@ -36,28 +34,14 @@ class ScriptsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(ScriptRequest $request)
 	{
-        $rules = array(
-            'name'       => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $script = new Script;
+        $script->name = $request->input('name');
+        $script->save();
 
-        // process the login
-        if ($validator->fails()) {
-            return redirect('scripts/create')
-                ->withErrors($validator)
-                ->withInput(Input::except('password'));
-        } else {
-            // store
-            $script = new Script;
-            $script->name = Input::get('name');
-            $nerd->save();
-
-            // redirect
-            return redirect('nerds')
-                ->with('message', 'Successfully created script!');
-        }
+        return redirect('scripts')
+            ->with('message', 'Successfully created script!');
 	}
 
 	/**
@@ -66,9 +50,9 @@ class ScriptsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($script)
 	{
-        return view('scripts.show');
+        return view('scripts.show', ['script' => $script]);
 	}
 
 	/**
@@ -77,9 +61,10 @@ class ScriptsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($script)
 	{
-		//
+		return view('scripts.edit')
+            ->with('message', $script);
 	}
 
 	/**
@@ -88,9 +73,13 @@ class ScriptsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($script, ScriptRequest $request)
 	{
-		//
+        $script->name = $request->input('name');
+        $script->save();
+
+        return redirect('scripts')
+            ->with('message', 'Successfully updated script!');
 	}
 
 	/**
@@ -99,9 +88,12 @@ class ScriptsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($script)
 	{
-		//
+        $script->delete();
+
+        return redirect('scripts')
+            ->with('message', 'Successfully deleted the script!');
 	}
 
 }

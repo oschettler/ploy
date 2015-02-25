@@ -11,7 +11,7 @@ class ScriptRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,7 +22,7 @@ class ScriptRequest extends Request {
 	public function rules()
 	{
 		return [
-			//
+            'name' => 'required',
 		];
 	}
 

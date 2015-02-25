@@ -4,8 +4,7 @@
 <div class="container">
     <h1>Create a Script</h1>
 
-    <!-- if there are creation errors, they will show here -->
-    {{ HTML::ul($errors->all()) }}
+    {!! HTML::ul($errors->all()) !!}
 
     {!! Form::open(array('url' => 'scripts/store')) !!}
 
