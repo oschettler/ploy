@@ -45,35 +45,28 @@ class ScriptsController extends Controller {
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($script)
-	{
-        return view('scripts.show', ['script' => $script]);
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
+	 * Script derived from "route model binding"
+     * @see http://laravel.com/docs/5.0/routing#route-model-binding
+     *
+	 * @param  Script $script
 	 * @return Response
 	 */
-	public function edit($script)
+	public function edit(Script $script)
 	{
 		return view('scripts.edit')
-            ->with('message', $script);
+            ->with('script', $script);
 	}
 
 	/**
 	 * Update the specified resource in storage.
+     * Script derived from "route model binding"
+     * @see http://laravel.com/docs/5.0/routing#route-model-binding
 	 *
-	 * @param  int  $id
+	 * @param  Script $script
 	 * @return Response
 	 */
-	public function update($script, ScriptRequest $request)
+	public function update(Script $script, ScriptRequest $request)
 	{
         $script->name = $request->input('name');
         $script->save();
@@ -84,11 +77,13 @@ class ScriptsController extends Controller {
 
 	/**
 	 * Remove the specified resource from storage.
+     * Script derived from "route model binding"
+     * @see http://laravel.com/docs/5.0/routing#route-model-binding
 	 *
-	 * @param  int  $id
+	 * @param  Script $script
 	 * @return Response
 	 */
-	public function destroy($script)
+	public function destroy(Script $script)
 	{
         $script->delete();
 

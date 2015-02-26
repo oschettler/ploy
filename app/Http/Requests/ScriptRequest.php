@@ -21,8 +21,10 @@ class ScriptRequest extends Request {
 	 */
 	public function rules()
 	{
+        // Check for a unique name but ignore the currently updated script
+        $script_id = $this->route()->parameters()['script']->id;
 		return [
-            'name' => 'required',
+            'name' => 'required|unique:scripts,name,' . $script_id,
 		];
 	}
 

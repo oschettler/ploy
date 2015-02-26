@@ -1,0 +1,15 @@
+/**
+ */
+th.actions,
+td.actions {
+    width: 60px;
+    text-align: right;
+}
+
+td.actions form {
+    display: inline-block;
+}
+
+form .buttons {
+    text-align: right;
+}

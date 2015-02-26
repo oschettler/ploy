@@ -34,12 +34,6 @@ Route::group([
     // Store a newly created script in storage
     Route::post('store', 'ScriptsController@store');
 
-    // Display the specified script
-    Route::get('{script}', [
-        'as' => 'scripts.show',
-        'uses' => 'ScriptsController@show'
-    ]);
-
     // Show the form for editing the specified script
     Route::get('edit/{script}', 'ScriptsController@edit');
 

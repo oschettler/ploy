@@ -10,10 +10,22 @@
 
         <div class="form-group">
             {!! Form::label('name', 'Name') !!}
-            {!! Form::text('name', null, array('class' => 'form-control')) !!}
+            {!! Form::text('name', null, ['class' => 'form-control']) !!}
         </div>
 
-        {!! Form::submit('Edit the Script!', array('class' => 'btn btn-primary')) !!}
+        <div class="form-group">
+            {!! Form::label('description', 'Description') !!}
+            {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4]) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('body', 'Body') !!}
+            {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+        </div>
+
+        <div class="buttons">
+            {!! Form::submit('Edit the Script!', ['class' => 'btn btn-primary']) !!}
+        </div>
 
         {!! Form::close() !!}
     </div>
