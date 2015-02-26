@@ -14,6 +14,10 @@ th.name {
     width: 20%;
 }
 
+th.updated {
+    width: 12em;
+}
+
 form .buttons {
     text-align: right;
 }
