@@ -10,6 +10,10 @@ td.actions form {
     display: inline-block;
 }
 
+th.name {
+    width: 20%;
+}
+
 form .buttons {
     text-align: right;
 }

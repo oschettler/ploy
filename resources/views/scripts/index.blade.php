@@ -5,7 +5,8 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
+            <th class="name">Name</th>
+            <th>Description</th>
             <th class="actions"><a href="{{ URL::to('scripts/create') }}"><i class="glyphicon glyphicon-plus-sign"></i></a></th>
         </tr>
         </thead>
@@ -13,6 +14,7 @@
         @foreach ($scripts as $script)
             <tr>
                 <td>{{ $script->name }}</td>
+                <td>{{ $script->description }}</td>
                 <td class="actions">
                     <a title="edit script" href="{{ URL::to('scripts/edit/' . $script->id) }}">
                         <i class="glyphicon glyphicon-edit"></i>

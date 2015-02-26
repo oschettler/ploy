@@ -36,8 +36,7 @@ class ScriptsController extends Controller {
 	 */
 	public function store(ScriptRequest $request)
 	{
-        $script = new Script;
-        $script->name = $request->input('name');
+        $script = Script::create($request->only(['name', 'description', 'body']));
         $script->save();
 
         return redirect('scripts')
@@ -68,7 +67,7 @@ class ScriptsController extends Controller {
 	 */
 	public function update(Script $script, ScriptRequest $request)
 	{
-        $script->name = $request->input('name');
+        $script->fill($request->only(['name', 'description', 'body']));
         $script->save();
 
         return redirect('scripts')
