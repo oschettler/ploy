@@ -37,6 +37,7 @@ class ScriptsController extends Controller {
 	public function store(ScriptRequest $request)
 	{
         $script = Script::create($request->only(['name', 'description', 'body']));
+        $script->user_id = $request->user()->id;
         $script->save();
 
         return redirect('scripts')
