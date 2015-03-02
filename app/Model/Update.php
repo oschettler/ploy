@@ -75,6 +75,12 @@ class Update extends Model
         $branch = $this->branch;
         $repo = $branch->repo;
 
+        $wc_dir = strtolower(preg_replace('/\W+/', '-', $repo->name . '-' . $branch->name));
+        if (preg_match('#^([-\w]*-\w+-\d+)#', $wc_dir, $matches)) {
+            // Shorten a working copy directory up until a ticket number
+            $wc_dir = $matches[1];
+        }
+
         return (object)[
             'script' => $repo->update_script,
             'args' => [
@@ -83,7 +89,7 @@ class Update extends Model
                 'wc_ssh_clone_url' => $repo->ssh_clone_url,
                 'wc_repos_root_dir' => getenv('REPOS_ROOT_DIR'),
                 'wc_root_dir' => $root_dir,
-                'wc_dir' => preg_replace('/\W+/', '-', $repo->name . '-' . $branch->name),
+                'wc_dir' => $wc_dir,
             ],
         ];
 	}
