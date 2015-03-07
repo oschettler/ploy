@@ -1,32 +1,68 @@
 @extends('app')
 
+@section('stylesheets')
+<style>
+    .ace_editor {
+        height: 170px;
+    }
+</style>
+@stop
+
+@section('scripts')
+<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js"></script>
+<script>
+    var editor = ace.edit("body-editor");
+    editor.setTheme("ace/theme/dawn");
+    editor.getSession().setMode("ace/mode/sh");
+
+    $('#script-form').submit(function ()
+    {
+        $('#body-field').val(editor.getValue());
+        return true;
+    });
+
+    $('#script-form').ready(function ()
+    {
+        editor.setValue($('#body-field').val());
+    });
+
+</script>
+@stop
+
 @section('content')
-    <div class="container">
-        <h1>Edit {{ $script->name }}</h1>
+<h1>{{ $page_title }}</h1>
 
-        {!! HTML::ul($errors->all()) !!}
+{!! HTML::ul($errors->all()) !!}
 
-        {!! Form::model($script, ['route' => ['scripts.update', $script->id], 'method' => 'POST']) !!}
+{!! $form_tag !!}
 
-        <div class="form-group">
-            {!! Form::label('name', 'Name') !!}
-            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                {!! Form::label('name', 'Name') !!}
+                {!! Form::text('name', Input::old('name'), ['class' => 'form-control']) !!}
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('description', 'Description') !!}
+                {!! Form::textarea('description', Input::old('description'), ['class' => 'form-control', 'rows' => 4]) !!}
+            </div>
         </div>
 
-        <div class="form-group">
-            {!! Form::label('description', 'Description') !!}
-            {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4]) !!}
+        <div class="col-md-6 col-sm-6">
+            <div class="form-group body">
+                {!! Form::label('body', 'Body') !!}
+                {!! Form::hidden('body', Input::old('body'), ['id' => 'body-field']) !!}
+                <div id="body-editor" class="form-control"></div>
+            </div>
         </div>
 
-        <div class="form-group">
-            {!! Form::label('body', 'Body') !!}
-            {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
-        </div>
-
-        <div class="buttons">
-            {!! Form::submit('Edit the Script!', ['class' => 'btn btn-primary']) !!}
-        </div>
-
-        {!! Form::close() !!}
     </div>
+
+    <div class="buttons">
+        <button class="btn btn-default">Cancel</button>
+        {!! Form::submit($btn_text, ['name' => 'save', 'class' => 'btn btn-primary']) !!}
+    </div>
+
+{!! Form::close() !!}
 @stop

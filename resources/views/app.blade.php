@@ -8,6 +8,9 @@
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    @yield('stylesheets')
+
     <link rel="stylesheet" href="/css/ploy.css">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -52,12 +55,17 @@
 			</div>
 		</div>
 	</nav>
-	
-	@yield('content')
 
-	<!-- Scripts -->
+    <div class="container">
+        @include('partials.alert')
+        @yield('content')
+    </div>
+
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    @yield('scripts')
+
     <script src="/js/scripts.js"></script>
 </body>
 </html>

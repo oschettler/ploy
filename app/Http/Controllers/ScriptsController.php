@@ -1,5 +1,7 @@
 <?php namespace Branches\Http\Controllers;
 
+use Illuminate\Html\FormFacade as Form;
+
 use Branches\Http\Requests;
 use Branches\Http\Controllers\Controller;
 
@@ -26,7 +28,14 @@ class ScriptsController extends Controller {
 	 */
 	public function create()
 	{
-        return view('scripts.create');
+        return view('scripts.edit')
+            ->with('page_title', "Create a script")
+            ->with('form_tag', Form::open([
+                'route' => ['scripts.store'],
+                'method' => 'POST',
+                'id' => 'script-form'
+            ]))
+            ->with('btn_text', 'Create the Script!');
 	}
 
 	/**
@@ -55,7 +64,14 @@ class ScriptsController extends Controller {
 	public function edit(Script $script)
 	{
 		return view('scripts.edit')
-            ->with('script', $script);
+            ->with('page_title', "Edit script #{$script->id} '{$script->name}'")
+            ->with('script', $script)
+            ->with('form_tag', Form::model($script, [
+                'id' => 'script-form',
+                'route' => ['scripts.update', $script->id],
+                'method' => 'POST'
+            ]))
+            ->with('btn_text', 'Edit the Script!');
 	}
 
 	/**
@@ -68,6 +84,10 @@ class ScriptsController extends Controller {
 	 */
 	public function update(Script $script, ScriptRequest $request)
 	{
+        if (!$request->input('save')) {
+            return redirect('scripts')
+                ->with('message', 'Edit aborted');
+        }
         $script->fill($request->only(['name', 'description', 'body']));
         $script->save();
 
