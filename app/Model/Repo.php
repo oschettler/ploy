@@ -9,4 +9,9 @@ class Repo extends Model
         return $this->hasMany('Branches\Model\Branch');
 	}
 
+    public function script()
+    {
+        return $this->belongsTo('Branches\Model\Script');
+    }
+
 }

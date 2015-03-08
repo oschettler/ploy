@@ -16,6 +16,16 @@ Route::post('/', 'WelcomeController@webhook');
 
 Route::post('/repos/update/{id}', 'ReposController@update');
 
+Route::get('/repos/{repo}', [
+    'as' => 'repos.show',
+    'uses' => 'ReposController@show'
+]);
+
+Route::post('/repos/script/{repo}', [
+    'as' => 'repos.script',
+    'uses' => 'ReposController@setScript'
+]);
+
 Route::get('/t', 'WelcomeController@t');
 
 Route::get('home', 'HomeController@index');
@@ -38,7 +48,10 @@ Route::group([
     ]);
 
     // Show the form for editing the specified script
-    Route::get('edit/{script}', 'ScriptsController@edit');
+    Route::get('edit/{script}', [
+        'as' => 'scripts.edit',
+        'uses' => 'ScriptsController@edit'
+    ]);
 
     // Update the specified script in storage
     Route::post('update/{script}', [

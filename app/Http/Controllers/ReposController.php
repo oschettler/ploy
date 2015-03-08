@@ -5,6 +5,8 @@ use Branches\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Branches\Model\Repo;
+use Branches\Http\Requests\RepoRequest;
+
 
 class ReposController extends Controller {
 
@@ -44,10 +46,16 @@ class ReposController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($repo)
 	{
-		//
+		return view('repos.show', ['repo' => $repo]);
 	}
+
+    public function setScript(Request $request, $repo)
+    {
+        $repo->script_id = $request->input('script_id');
+        $repo->save();
+    }
 
 	/**
 	 * Show the form for editing the specified resource.

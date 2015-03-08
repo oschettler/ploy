@@ -21,3 +21,7 @@ th.updated {
 form .buttons {
     text-align: right;
 }
+
+a {
+    cursor: pointer;
+}

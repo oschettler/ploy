@@ -25,6 +25,7 @@ class RouteServiceProvider extends ServiceProvider {
 		parent::boot($router);
 
         $router->model('script', 'Branches\Model\Script');
+        $router->model('repo', 'Branches\Model\Repo');
 	}
 
 	/**
