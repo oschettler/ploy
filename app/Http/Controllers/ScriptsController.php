@@ -71,7 +71,8 @@ class ScriptsController extends Controller {
                 'route' => ['scripts.update', $script->id],
                 'method' => 'POST'
             ]))
-            ->with('btn_text', 'Edit the Script!');
+            ->with('btn_text', 'Edit the Script!')
+            ->with('last_versions', $script->lastVersions());
 	}
 
 	/**

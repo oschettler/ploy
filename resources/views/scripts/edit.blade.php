@@ -26,6 +26,13 @@
         editor.setValue($('#body-field').val());
     });
 
+    $('a.version').click(function (e)
+    {
+        e.preventDefault();
+        var body = $(this).siblings('script').html();
+        editor.setValue(body);
+    });
+
 </script>
 @stop
 
@@ -65,4 +72,16 @@
     </div>
 
 {!! Form::close() !!}
+
+<h2>Versions</h2>
+
+<ul>
+@foreach ($last_versions as $last_version)
+    <li>
+        <a class="version" href="#">{{ $last_version->updated_at }}</a>
+        <script type="field/body">{{ $last_version->getModel()->body }}</script>
+    </li>
+@endforeach
+</ul>
+
 @stop
