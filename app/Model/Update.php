@@ -69,6 +69,11 @@ class Update extends Model
         return $this->belongsTo('Branches\Model\Branch');
 	}
 
+    public function logs()
+    {
+        return $this->hasMany('Branches\Model\Log');
+    }
+
 	public function workingCopyArgs()
 	{
         $root_dir = getenv('WORKING_COPY_ROOT_DIR');

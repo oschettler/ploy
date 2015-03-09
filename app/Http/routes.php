@@ -26,6 +26,16 @@ Route::post('/repos/script/{repo}', [
     'uses' => 'ReposController@setScript'
 ]);
 
+Route::get('/branches/{branch}', [
+    'as' => 'branches.show',
+    'uses' => 'BranchesController@show'
+]);
+
+Route::get('/updates/{update}', [
+    'as' => 'updates.show',
+    'uses' => 'UpdatesController@show'
+]);
+
 Route::get('/t', 'WelcomeController@t');
 
 Route::get('home', 'HomeController@index');
