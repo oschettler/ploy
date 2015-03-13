@@ -41,7 +41,7 @@
                             <a href="{{ $repo->ssh_clone_url }}">{{ $repo->ssh_clone_url }}</a>
                         </td>
                         <td>
-                            @foreach ($repo->branches->all() as $branch)
+                            @foreach ($repo->paginatedBranches() as $branch)
                                 <span class="label label-success">{{ $branch->name }}</span>
                             @endforeach
                         </td>

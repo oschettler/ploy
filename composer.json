@@ -4,11 +4,19 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
-	"require": {
+
+    "repositories": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/oschettler/versionable.git"
+        }
+    ],
+
+    "require": {
 		"laravel/framework": "5.0.*",
 		"illuminate/html": "5.*",
 		"raveren/kint": "*",
-        "mpociot/versionable": "1.*"
+        "mpociot/versionable": "dev-reason"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

@@ -3,7 +3,7 @@
 @section('stylesheets')
 <style>
     .ace_editor {
-        height: 170px;
+        height: 242px;
     }
 </style>
 @stop
@@ -37,51 +37,67 @@
 @stop
 
 @section('content')
-<h1>{{ $page_title }}</h1>
+    <h1>{{ $page_title }}</h1>
 
-{!! HTML::ul($errors->all()) !!}
+    {!! HTML::ul($errors->all()) !!}
 
-{!! $form_tag !!}
+    {!! $form_tag !!}
 
-    <div class="row">
-        <div class="col-md-6 col-sm-6">
-            <div class="form-group">
-                {!! Form::label('name', 'Name') !!}
-                {!! Form::text('name', Input::old('name'), ['class' => 'form-control']) !!}
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                    {!! Form::label('name', 'Name') !!}
+                    {!! Form::text('name', Input::old('name'), ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('description', 'Description') !!}
+                    {!! Form::textarea('description', Input::old('description'), ['class' => 'form-control', 'rows' => 4]) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('reason', 'Reason') !!}
+                    {!! Form::text('reason', Input::old('reason'), ['class' => 'form-control']) !!}
+                </div>
             </div>
 
-            <div class="form-group">
-                {!! Form::label('description', 'Description') !!}
-                {!! Form::textarea('description', Input::old('description'), ['class' => 'form-control', 'rows' => 4]) !!}
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group body">
+                    {!! Form::label('body', 'Body') !!}
+                    {!! Form::hidden('body', Input::old('body'), ['id' => 'body-field']) !!}
+                    <div id="body-editor" class="form-control"></div>
+                </div>
             </div>
+
         </div>
 
-        <div class="col-md-6 col-sm-6">
-            <div class="form-group body">
-                {!! Form::label('body', 'Body') !!}
-                {!! Form::hidden('body', Input::old('body'), ['id' => 'body-field']) !!}
-                <div id="body-editor" class="form-control"></div>
-            </div>
+        <div class="buttons">
+            <button class="btn btn-default">Cancel</button>
+            {!! Form::submit($btn_text, ['name' => 'save', 'class' => 'btn btn-primary']) !!}
         </div>
 
+    {!! Form::close() !!}
+
+    <h2>Versions</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr><th style="width:20%">Created</th><th>Reason</th></tr>
+        </thead>
+        <tbody>
+            @foreach ($last_versions as $last_version)
+                <tr>
+                    <td>
+                        <a class="version" href="#">{{ $last_version->updated_at }}</a>
+                        <script type="field/body">{{ $last_version->getModel()->body }}</script>
+                    </td>
+                    <td>{{ $last_version->reason }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <div class="pagination-wrapper">
+        {!! $last_versions->render() !!}
     </div>
-
-    <div class="buttons">
-        <button class="btn btn-default">Cancel</button>
-        {!! Form::submit($btn_text, ['name' => 'save', 'class' => 'btn btn-primary']) !!}
-    </div>
-
-{!! Form::close() !!}
-
-<h2>Versions</h2>
-
-<ul>
-@foreach ($last_versions as $last_version)
-    <li>
-        <a class="version" href="#">{{ $last_version->updated_at }}</a>
-        <script type="field/body">{{ $last_version->getModel()->body }}</script>
-    </li>
-@endforeach
-</ul>
 
 @stop

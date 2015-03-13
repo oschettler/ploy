@@ -25,7 +25,10 @@ class Update extends Model
 
         $repo->owner_name = $info->owner_name;
         $repo->owner_email = $info->owner_email;
-        $repo->ssh_clone_url = $info->ssh_clone_url;
+
+        if (!empty($info->ssh_clone_url)) {
+            $repo->ssh_clone_url = $info->ssh_clone_url;
+        }
         $repo->save();
 
         /*
@@ -87,7 +90,7 @@ class Update extends Model
         }
 
         return (object)[
-            'script' => $repo->update_script,
+            'script' => $repo->script->body,
             'args' => [
                 'wc_branch' => $branch->name,
                 'wc_repo' => $repo->name,
