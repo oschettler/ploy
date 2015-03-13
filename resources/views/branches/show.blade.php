@@ -10,6 +10,10 @@
         <li class="active">Branch <em>{{ $branch->name }}</em></li>
     </ol>
 
+    <?php
+    $updates = $branch->paginatedUpdates();
+    ?>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -18,7 +22,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($branch->updates->all() as $update)
+        @foreach ($updates as $update)
             <tr>
                 <td><a href="{{ route('updates.show', $update->id) }}">{{ $update->created_at }}</a></td>
                 <td><span class="label label-{{ $update->status }}">{{ $update->status }}</span></td>
@@ -26,4 +30,8 @@
         @endforeach
         </tbody>
     </table>
+
+    <div class="pagination-wrapper">
+        {!! $updates->render() !!}
+    </div>
 @endsection

@@ -20,4 +20,10 @@ class Branch extends Model
     {
         return $this->hasMany('Branches\Model\Update');
     }
+
+    public function paginatedUpdates($limit = 3)
+    {
+        return $this->updates()->paginate($limit);
+    }
+
 }
