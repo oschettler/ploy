@@ -89,7 +89,7 @@ class ScriptsController extends Controller {
             return redirect('scripts')
                 ->with('message', 'Edit aborted');
         }
-        $script->fill($request->only(['name', 'description', 'body']));
+        $script->fill($request->only(['name', 'description', 'body', 'reason']));
         $script->save();
 
         return redirect('scripts')
