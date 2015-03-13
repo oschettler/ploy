@@ -9,6 +9,10 @@
         <li class="active">Repo <em>{{ $repo->name }}</em></li>
     </ol>
 
+    <?php
+    $branches = $repo->paginatedBranches();
+    ?>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -18,7 +22,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($repo->branches->all() as $branch)
+        @foreach ($branches as $branch)
             <?php
             $last_update = $branch->lastUpdate();
             $status = $last_update ? $last_update->status : 'default';
@@ -31,4 +35,8 @@
         @endforeach
         </tbody>
     </table>
+
+    <div class="pagination-wrapper">
+        {!! $branches->render() !!}
+    </div>
 @endsection
