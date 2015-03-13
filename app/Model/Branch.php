@@ -18,7 +18,8 @@ class Branch extends Model
 
     public function updates()
     {
-        return $this->hasMany('Branches\Model\Update');
+        return $this->hasMany('Branches\Model\Update')
+	    ->orderBy('created_at' , 'DESC');
     }
 
     public function paginatedUpdates($limit = 3)
