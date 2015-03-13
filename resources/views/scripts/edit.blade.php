@@ -77,6 +77,7 @@
 
     {!! Form::close() !!}
 
+    @if (!empty($last_versions))
     <h2>Versions</h2>
 
     <table class="table table-striped">
@@ -93,11 +94,14 @@
                     <td>{{ $last_version->reason }}</td>
                 </tr>
             @endforeach
+	    
         </tbody>
     </table>
 
     <div class="pagination-wrapper">
         {!! $last_versions->render() !!}
     </div>
+
+    @endif
 
 @stop
