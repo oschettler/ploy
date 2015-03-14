@@ -25,7 +25,10 @@ class Update extends Model
 
         $repo->owner_name = $info->owner_name;
         $repo->owner_email = $info->owner_email;
-        $repo->ssh_clone_url = $info->ssh_clone_url;
+
+        if (!empty($info->ssh_clone_url)) {
+            $repo->ssh_clone_url = $info->ssh_clone_url;
+        }
         $repo->save();
 
         /*
@@ -55,11 +58,7 @@ class Update extends Model
         /*
          * Log
          */
-
-        $log = new Log;
-        $log->update_id = $update->id;
-        $log->message = "Update for {$repo->name}.{$branch->name}";
-        $log->save();
+        Log::say($update->id, "Update for {$repo->name}.{$branch->name}");
 
         return $update;
 	}
@@ -68,6 +67,11 @@ class Update extends Model
 	{
         return $this->belongsTo('Branches\Model\Branch');
 	}
+
+    public function logs()
+    {
+        return $this->hasMany('Branches\Model\Log');
+    }
 
 	public function workingCopyArgs()
 	{
@@ -82,7 +86,7 @@ class Update extends Model
         }
 
         return (object)[
-            'script' => $repo->update_script,
+            'script' => $repo->script->body,
             'args' => [
                 'wc_branch' => $branch->name,
                 'wc_repo' => $repo->name,

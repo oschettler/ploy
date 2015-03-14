@@ -2,13 +2,12 @@
 
 use Branches\Http\Requests;
 use Branches\Http\Controllers\Controller;
+use Branches\Commands\UpdateWorkingCopy;
+use Branches\Model\Update;
 
 use Illuminate\Http\Request;
-use Branches\Model\Repo;
-use Branches\Http\Requests\RepoRequest;
 
-
-class ReposController extends Controller {
+class UpdatesController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -46,16 +45,10 @@ class ReposController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($repo)
+	public function show(Update $update)
 	{
-		return view('repos.show', ['repo' => $repo]);
+        return view('updates.show', ['update' => $update]);
 	}
-
-    public function setScript(Request $request, $repo)
-    {
-        $repo->script_id = $request->input('script_id');
-        $repo->save();
-    }
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -74,12 +67,9 @@ class ReposController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update($id)
 	{
-		$repo = Repo::find($id)->firstOrFail();
-        $repo->update_script = $request->input('update_script');	
-        $repo->save();
-        return redirect('/home')->with('message', 'Script updated');	
+		//
 	}
 
 	/**
@@ -91,6 +81,14 @@ class ReposController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+	
+	public function run(Update $update)
+	{
+    	(new UpdateWorkingCopy($update))->handle();
+    	return redirect()
+    	    ->route('updates.show', $update->id)
+    	    ->with('message', "Update #{$update->id} complete");
 	}
 
 }

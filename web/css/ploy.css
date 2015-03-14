@@ -1,0 +1,63 @@
+/**
+ */
+th.actions,
+td.actions {
+    width: 60px;
+    text-align: right;
+}
+
+td.actions form {
+    display: inline-block;
+}
+
+th.name {
+    width: 20%;
+}
+
+th.updated {
+    width: 12em;
+}
+
+form .buttons {
+    text-align: right;
+}
+
+a {
+    cursor: pointer;
+}
+
+.pagination-wrapper {
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+
+pre.log {
+    position: relative;
+}
+
+.timestamp {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none;
+    font-size: 0.8em;
+    color: #888;
+}
+
+pre.log:hover .timestamp {
+    display: block;
+}
+
+h1 {
+    position: relative;
+}
+
+h1 .actions {
+    position: absolute;
+    top: 10px;
+    right: 0;
+}

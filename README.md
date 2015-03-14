@@ -54,6 +54,9 @@ In your `WORKING_COPY_ROOT_DIR`, there will now be a clone of the branch you pus
 
 ## Example Deployment Recipe
 
+You can have many recipes and associate a repository with one.
+Here is an example:
+
 ````
 # This script gets invoked with the following environment variables:
 # - WC_BRANCH

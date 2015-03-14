@@ -1,6 +1,7 @@
 <?php namespace Branches\Http\Controllers;
 
 use Branches\Model\Repo;
+use Branches\Model\Script;
 
 class HomeController extends Controller {
 
@@ -33,7 +34,8 @@ class HomeController extends Controller {
 	public function index()
 	{
 		return view('home', [
-    		'repos' => Repo::all()
+    		'repos' => Repo::all(),
+            'scripts' => Script::all(),
 		]);
 	}
 

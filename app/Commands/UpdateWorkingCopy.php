@@ -42,15 +42,19 @@ class UpdateWorkingCopy extends Command implements SelfHandling, ShouldBeQueued 
         // Remove carriage returns. The shell can't handle them
         $script = strtr($args->script, ["\r" => '']);
 
-		$log = new Log;
-		$log->update_id = $this->update->id;
-		$log->message = "Script: {$script}";
-		$log->save();
-		
-		$log = new Log;
-		$log->update_id = $this->update->id;
-        $log->message = shell_exec($script);
-        $log->save();
+        Log::say($this->update->id, "Script:\n{$script}");
+
+        $fname = tempnam(sys_get_temp_dir(), 'ploy');
+        file_put_contents($fname, $script);
+
+        exec("/bin/bash $fname 2>&1", $output, $status);
+
+        unlink($fname);
+
+        Log::say($this->update->id, join("\n", $output) . "\nStatus: {$status}");
+        
+        $status = ($status == 0) ? 'success' : "error status-{$status}";
+        $this->update->status = $status;
 	}
 
 }
