@@ -52,7 +52,7 @@ class Update extends Model
 
         $update = new self;
         $update->branch_id = $branch->id;
-        $update->status = 'created';
+        $update->status = 'default';
         $update->save();
 
         /*
