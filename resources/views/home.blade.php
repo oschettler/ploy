@@ -42,7 +42,12 @@
                         </td>
                         <td>
                             @foreach ($repo->paginatedBranches() as $branch)
-                                <span class="label label-success">{{ $branch->name }}</span>
+                                <?php
+                                $last_update = $branch->lastUpdate();
+                                ?>
+                                <a href="{{ route('updates.show', $last_update->id) }} ">
+                                    <span class="label label-{{ $last_update->status }}">{{ $branch->name }}</span>
+                                </a>
                             @endforeach
                         </td>
                         <td>

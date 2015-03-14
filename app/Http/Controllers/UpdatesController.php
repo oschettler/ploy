@@ -2,6 +2,8 @@
 
 use Branches\Http\Requests;
 use Branches\Http\Controllers\Controller;
+use Branches\Commands\UpdateWorkingCopy;
+use Branches\Model\Update;
 
 use Illuminate\Http\Request;
 
@@ -43,7 +45,7 @@ class UpdatesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($update)
+	public function show(Update $update)
 	{
         return view('updates.show', ['update' => $update]);
 	}
@@ -79,6 +81,14 @@ class UpdatesController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+	
+	public function run(Update $update)
+	{
+    	(new UpdateWorkingCopy($update))->handle();
+    	return redirect()
+    	    ->route('updates.show', $update->id)
+    	    ->with('message', "Update #{$update->id} complete");
 	}
 
 }

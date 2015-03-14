@@ -1,8 +1,11 @@
 @extends('app')
 
 @section('content')
-
-    <h1>Update <em>{{ $update->created_at }}</em></h1>
+    <h1>
+        <div class="actions">
+            <a title="rerun this update" href="{{ route('updates.run', $update->id) }}"><i class="glyphicon glyphicon-refresh"></i></a>
+        </div>
+        Update <em>{{ $update->created_at }}</em></h1>
 
     <ol class="breadcrumb">
         <li><a href="/home">Repositories</a></li>
@@ -12,6 +15,6 @@
     </ol>
 
     @foreach ($update->logs->all() as $log)
-        <pre>{{ $log->message }}</pre>
+        <pre class="log"><span class="timestamp">{{ $log->created_at }}</span>{{ $log->message }}</pre>
     @endforeach
 @endsection

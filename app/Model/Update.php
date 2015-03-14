@@ -58,11 +58,7 @@ class Update extends Model
         /*
          * Log
          */
-
-        $log = new Log;
-        $log->update_id = $update->id;
-        $log->message = "Update for {$repo->name}.{$branch->name}";
-        $log->save();
+        Log::say($update->id, "Update for {$repo->name}.{$branch->name}");
 
         return $update;
 	}

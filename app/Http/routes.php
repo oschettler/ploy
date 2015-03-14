@@ -36,6 +36,11 @@ Route::get('/updates/{update}', [
     'uses' => 'UpdatesController@show'
 ]);
 
+Route::get('/updates/run/{update}', [
+    'as' => 'updates.run',
+    'uses' => 'UpdatesController@run'
+]);
+
 Route::get('/t', 'WelcomeController@t');
 
 Route::get('home', 'HomeController@index');
