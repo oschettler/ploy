@@ -55,6 +55,7 @@ class UpdateWorkingCopy extends Command implements SelfHandling, ShouldBeQueued 
         
         $status = ($status == 0) ? 'success' : "error status-{$status}";
         $this->update->status = $status;
+        $this->update->save();
 	}
 
 }
