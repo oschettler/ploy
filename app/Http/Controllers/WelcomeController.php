@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use Branches\Model\Update;
+use Branches\Model\Log;
 use Branches\Commands\UpdateWorkingCopy;
 
 use Branches\Decoders\GithubDecoder;
