@@ -85,7 +85,7 @@ class UpdatesController extends Controller {
 	
 	public function run(Update $update)
 	{
-    	(new UpdateWorkingCopy($update))->handle();
+    	$this->dispatch(new UpdateWorkingCopy($update));
     	return redirect()
     	    ->route('updates.show', $update->id)
     	    ->with('message', "Update #{$update->id} complete");
