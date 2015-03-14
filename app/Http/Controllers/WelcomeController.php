@@ -34,10 +34,10 @@ class WelcomeController extends Controller
     {
         //D error_reporting(-1);
         //D ini_set('display_errors', true);
-        error_log(strftime("%Y-%m-%d %H:%M:%S Webhook start\n"), 3, '/tmp/branches-log.log');
+        //D error_log(strftime("%Y-%m-%d %H:%M:%S Webhook start\n"), 3, '/tmp/branches-log.log');
         
         $content = $request->getContent();
-        file_put_contents('/tmp/branches.log', $content);
+        //D file_put_contents('/tmp/branches.log', $content);
         
         if (stripos($_SERVER['HTTP_USER_AGENT'], 'github') === 0) {
             $decoder = new GithubDecoder;
@@ -47,9 +47,12 @@ class WelcomeController extends Controller
         }
         $info = $decoder->decode(json_decode($content));
         
-        $this->dispatch(new UpdateWorkingCopy(Update::createFromInfo($info)));
+        $update = Update::createFromInfo($info);
+        Log::say($update->id, "Webhook payload\n" . $content);
         
-        error_log(strftime("%Y-%m-%d %H:%M:%S Webhook finished\n"), 3, '/tmp/branches-log.log');        
+        $this->dispatch(new UpdateWorkingCopy($update));
+        
+        //D error_log(strftime("%Y-%m-%d %H:%M:%S Webhook finished\n"), 3, '/tmp/branches-log.log');        
         return 'OK';
     }
 }
