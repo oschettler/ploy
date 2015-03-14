@@ -12,7 +12,7 @@ This is the initial release of an application that you use as follows:
 ## Use Cases
 
 *  Deploy each branch as a working copy, in the guise of https://platform.sh/
-*  Automatically deploy code updates to a production server, possibly after running a set of automatic tests 
+*  Automatically build, install, and deploy code updates to a production server, possibly after running a set of automatic tests 
 
 ## Setup
 
