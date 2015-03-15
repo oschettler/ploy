@@ -46,10 +46,12 @@ class WelcomeController extends Controller
         else {
             $decoder = new StashDecoder;
         }
-        $info = $decoder->decode(json_decode($content));
+        
+        $as_object = json_decode($content); 
+        $info = $decoder->decode($as_object);
         
         $update = Update::createFromInfo($info);
-        Log::say($update->id, "Webhook payload\n" . $content);
+        Log::say($update->id, "Webhook payload\n" . json_encode($as_object, JSON_PRETTY_PRINT));
         
         $this->dispatch(new UpdateWorkingCopy($update));
         
