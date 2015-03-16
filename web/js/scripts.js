@@ -18,5 +18,12 @@ jQuery(function ($) {
     $('#edit-script').on('shown.bs.modal', function () 
     {
         $('#script-text').focus();
-    });   
+    });
+
+    $('form a.submit').click(function (e)
+    {
+        e.preventDefault();
+
+        $(this).parents('form').submit();
+    });
 });

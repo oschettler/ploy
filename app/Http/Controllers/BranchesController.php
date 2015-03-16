@@ -4,11 +4,8 @@ use Branches\Http\Requests;
 use Branches\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use Branches\Model\Repo;
-use Branches\Http\Requests\RepoRequest;
 
-
-class ReposController extends Controller {
+class BranchesController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -46,16 +43,10 @@ class ReposController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($repo)
+	public function show($branch)
 	{
-		return view('repos.show', ['repo' => $repo]);
+        return view('branches.show', ['branch' => $branch]);
 	}
-
-    public function setScript(Request $request, $repo)
-    {
-        $repo->script_id = $request->input('script_id');
-        $repo->save();
-    }
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -74,12 +65,9 @@ class ReposController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update($id)
 	{
-		$repo = Repo::find($id)->firstOrFail();
-        $repo->update_script = $request->input('update_script');	
-        $repo->save();
-        return redirect('/home')->with('message', 'Script updated');	
+		//
 	}
 
 	/**
