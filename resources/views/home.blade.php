@@ -44,9 +44,19 @@
                             @foreach ($repo->paginatedBranches() as $branch)
                                 <?php
                                 $last_update = $branch->lastUpdate();
+                                $status = $last_update ? $last_update->status : 'default';
+            
+                                $label = $status;
+                                if (strpos($label, 'error') === 0) {
+                                    $label = 'danger';
+                                }
+                                else
+                                if (strpos($label, 'created') === 0) {
+                                    $label = 'default';
+                                }
                                 ?>
                                 <a href="{{ route('updates.show', $last_update->id) }} ">
-                                    <span class="label label-{{ $last_update->status }}">{{ $branch->name }}</span>
+                                    <span class="label label-{{ $label }}">{{ $branch->name }}</span>
                                 </a>
                             @endforeach
                         </td>
