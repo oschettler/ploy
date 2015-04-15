@@ -6,7 +6,7 @@ class Repo extends Model
 {
    	public function branches()
 	{
-        return $this->hasMany('Branches\Model\Branch')->orderBy('updated_at');
+        return $this->hasMany('Branches\Model\Branch')->orderBy('updated_at', 'DESC');
 	}
 
     public function paginatedBranches($limit = 10)
