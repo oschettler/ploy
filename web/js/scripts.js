@@ -26,4 +26,21 @@ jQuery(function ($) {
 
         $(this).parents('form').submit();
     });
+
+    (function jobs() 
+    {
+        setTimeout(function() 
+        {
+            $('.activity').css({ color: '#777' });
+            $.ajax({ 
+                url: "/jobs", 
+                success: function(data)
+                {
+                    $('.activity').css({ color: 'red' });
+                }, 
+                dataType: "json", 
+                complete: jobs 
+            });
+        }, 30000);
+    })();
 });
