@@ -50,8 +50,12 @@
                                     if (strpos($status, 'error') === 0) {
                                         $label = 'danger';
                                     }
-                                    else {
+                                    else
+                                    if (strpos($status, 'created') === 0) {
                                         $label = 'default';
+                                    }
+                                    else {
+                                        $label = $status;
                                     }
                                     ?>
                                     <a href="{{ route('updates.show', $last_update->id) }} ">
