@@ -21,15 +21,15 @@ class ScriptRequest extends Request {
 	 */
 	public function rules()
 	{
-        $unique_name_rule = [
-            'name' => 'required|unique:scripts,name',
-        ];
+    $unique_name_rule = [
+        'name' => 'required|unique:scripts,name',
+    ];
 
-        $route_parameters = $this->route()->parameters();
-        if (!empty($route_parameters['script'])) {
-            // Check for a unique name but ignore the currently updated script
-            $unique_name_rule['name'] .= ',' . $route_parameters['script']->id;
-        }
+    $route_parameters = $this->route()->parameters();
+    if (!empty($route_parameters['script'])) {
+        // Check for a unique name but ignore the currently updated script
+        $unique_name_rule['name'] .= ',' . $route_parameters['script']->id;
+    }
 		return $unique_name_rule;
 	}
 

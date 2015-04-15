@@ -33,10 +33,12 @@ jQuery(function ($) {
         {
             $('.activity').css({ color: '#777' });
             $.ajax({ 
-                url: "/jobs", 
-                success: function(data)
+                url: "/jobs/count", 
+                success: function(response)
                 {
-                    $('.activity').css({ color: 'red' });
+                    if (response.count > 0) {
+                        $('.activity').css({ color: 'red' });
+                    }
                 }, 
                 dataType: "json", 
                 complete: jobs 

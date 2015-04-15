@@ -78,6 +78,18 @@ Route::group([
     Route::post('destroy/{script}', 'ScriptsController@destroy');
 });
 
+Route::group([
+    'prefix' => 'jobs',
+    'middleware' => 'auth',
+], function()
+{
+    // Display a listing of the resource.
+    Route::get('', 'JobsController@index');
+
+    // Return the current job count as JSON
+    Route::get('count', 'JobsController@count');
+});
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
