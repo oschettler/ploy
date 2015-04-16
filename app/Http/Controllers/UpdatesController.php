@@ -3,7 +3,9 @@
 use Branches\Http\Requests;
 use Branches\Http\Controllers\Controller;
 use Branches\Commands\UpdateWorkingCopy;
+
 use Branches\Model\Update;
+use Branches\Model\Job;
 
 use Illuminate\Http\Request;
 
@@ -93,4 +95,13 @@ class UpdatesController extends Controller {
     	    ->with('message', "Update #{$update->id} complete");
 	}
 
+	/**
+	 * Display count of entries in the job table.
+	 *
+	 * @return Response
+	 */
+	public function jobCount()
+	{
+    	return response()->json(['count' => Job::count()]);
+	}
 }

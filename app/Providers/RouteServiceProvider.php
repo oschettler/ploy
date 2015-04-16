@@ -28,7 +28,6 @@ class RouteServiceProvider extends ServiceProvider {
         $router->model('update', 'Branches\Model\Update');
         $router->model('branch', 'Branches\Model\Branch');
         $router->model('repo', 'Branches\Model\Repo');
-        $router->model('job', 'Branches\Model\Job');
 	}
 
 	/**

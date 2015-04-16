@@ -46,6 +46,9 @@ Route::get('/updates/run/{update}', [
     'uses' => 'UpdatesController@run'
 ]);
 
+// Return the current job count as JSON
+Route::get('jobs/count', 'UpdatesController@jobCount');
+
 Route::get('/t', 'WelcomeController@t');
 
 Route::get('home', 'HomeController@index');
@@ -81,24 +84,6 @@ Route::group([
 
     // Remove the specified script from storage
     Route::post('destroy/{script}', 'ScriptsController@destroy');
-});
-
-Route::group([
-    'prefix' => 'jobs',
-    'middleware' => 'auth',
-], function()
-{
-    // Show 
-    Route::get('show/{job}', [
-        'as' => 'jobs.show',
-        'uses' => 'JobsController@show'
-    ]);
-
-    // Display a listing of the resource.
-    Route::get('', 'JobsController@index');
-
-    // Return the current job count as JSON
-    Route::get('count', 'JobsController@count');
 });
 
 Route::controllers([
