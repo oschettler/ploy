@@ -16,7 +16,9 @@ class UpdatesController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return view('updates.index', [
+    		'updates' => Update::orderBy('updated_at' , 'DESC')->paginate(10),
+		]);
 	}
 
 	/**

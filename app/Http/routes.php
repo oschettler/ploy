@@ -31,6 +31,11 @@ Route::get('/branches/{branch}', [
     'uses' => 'BranchesController@show'
 ]);
 
+Route::get('/updates', [
+    'as' => 'updates',
+    'uses' => 'UpdatesController@index'
+]);
+
 Route::get('/updates/{update}', [
     'as' => 'updates.show',
     'uses' => 'UpdatesController@show'
@@ -83,6 +88,12 @@ Route::group([
     'middleware' => 'auth',
 ], function()
 {
+    // Show 
+    Route::get('show/{job}', [
+        'as' => 'jobs.show',
+        'uses' => 'JobsController@show'
+    ]);
+
     // Display a listing of the resource.
     Route::get('', 'JobsController@index');
 

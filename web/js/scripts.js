@@ -31,18 +31,22 @@ jQuery(function ($) {
     {
         setTimeout(function() 
         {
-            $('.activity').css({ color: '#777' });
+            $('.activity')
+                .css({ color: '#777' })
+                 .attr('title', 'No active jobs');
             $.ajax({ 
                 url: "/jobs/count", 
                 success: function(response)
                 {
                     if (response.count > 0) {
-                        $('.activity').css({ color: 'red' });
+                        $('.activity')
+                            .css({ color: 'red' })
+                            .attr('title', response.count + ' active jobs');
                     }
                 }, 
                 dataType: "json", 
                 complete: jobs 
             });
-        }, 30000);
+        }, 10000);
     })();
 });

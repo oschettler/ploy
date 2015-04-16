@@ -51,7 +51,7 @@
 								<li><a href="/auth/logout">Logout</a></li>
 							</ul>
 						</li>
-                        <li><a class="activity" href="{{ URL::to('jobs') }}"><i class="glyphicon glyphicon-cog"></i></a></li>
+                        <li><a class="activity" href="{{ URL::to('updates') }}"><i class="glyphicon glyphicon-cog"></i></a></li>
 					@endif
 				</ul>
 			</div>
