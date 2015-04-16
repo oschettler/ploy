@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
+		'Branches\Console\Commands\PloyScript',
 		'Branches\Console\Commands\Inspire',
 	];
 
