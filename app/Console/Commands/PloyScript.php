@@ -39,8 +39,10 @@ class PloyScript extends Command {
 	 */
 	public function fire()
 	{
-		$script = Script::where('name', $this->argument('script'))->firstOrFail();;
-		echo $script->body;
+		$script = Script::where('name', $this->argument('script'))->firstOrFail();
+
+        // Remove carriage returns. The shell can't handle them
+        echo strtr($script->body, ["\r" => '']);
 	}
 
 	/**
