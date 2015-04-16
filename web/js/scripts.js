@@ -29,7 +29,7 @@ jQuery(function ($) {
 
     (function jobs() 
     {
-        setTimeout(function() 
+        function check()
         {
             $('.activity')
                 .css({ color: '#777' })
@@ -47,6 +47,9 @@ jQuery(function ($) {
                 dataType: "json", 
                 complete: jobs 
             });
-        }, 10000);
+        }
+
+        check();
+        setTimeout(check, 30000);
     })();
 });
