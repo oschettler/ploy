@@ -15,10 +15,12 @@
     <tbody>
     @foreach ($updates as $update)
         <tr>
-            <td>{{ $update->branch->repo->name }}</td>
-            <td>{{ $update->branch->name }}</td>
+            <td>
+                <a href="{{ route('repos.show', [$update->branch->repo->id]) }}">{{ $update->branch->repo->name }}</a>
+            </td>
+            <td><a href="{{ route('branches.show', [$update->branch->id]) }}">{{ $update->branch->name }}</a></td>
             <td>{{ $update->status }}</td>
-            <td>{{ $update->updated_at }}</td>
+            <td><a href="{{ route('updates.show', [$update->id]) }}">{{ $update->updated_at }}</a></td>
         </tr>
     @endforeach
     </tbody>
