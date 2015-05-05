@@ -49,7 +49,6 @@ jQuery(function ($) {
             });
         }
 
-        check();
         setTimeout(check, 30000);
     })();
 });
