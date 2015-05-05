@@ -14,6 +14,8 @@ fi
 echo $$ > $pidfile
 echo "Starting Ploy queue"
 
+cd `dirname $0`
+
 while true
 do 
   date
